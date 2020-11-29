@@ -83,32 +83,29 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // ignore: prefer_const_literals_to_create_immutables
             Container(
-              margin: const EdgeInsets.all(15.0),
-              child: Column(
-                  children: <Widget>[
-                    const Text(
-                      'Please input a number to see if it is a square or a triangle',
-                    ),
-                    TextField(
-                      controller: inputHolder,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      onChanged: (String value) {
-                        setState(() {
-                          if (value.isEmpty) {
-                            isEmpty = true;
-                          } else {
-                            inputNumber = int.parse(value);
-                            isEmpty = false;
-                          }
-                        });
-                      },
-                    ),
-                  ]
-              )
-            ),
+                margin: const EdgeInsets.all(15.0),
+                child: Column(children: <Widget>[
+                  const Text(
+                    'Please input a number to see if it is a square or a triangle',
+                  ),
+                  TextField(
+                    controller: inputHolder,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    onChanged: (String value) {
+                      setState(() {
+                        if (value.isEmpty) {
+                          isEmpty = true;
+                        } else {
+                          inputNumber = int.parse(value);
+                          isEmpty = false;
+                        }
+                      });
+                    },
+                  ),
+                ])),
           ],
         ),
       ),
