@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:powers/powers.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -38,11 +39,11 @@ class _MyHomePageState extends State<MyHomePage> {
       } else if (inputNumber == 1) {
         outputText = 'Number $inputNumber is SQUARE and TRIANGULAR';
       } else {
-        if (_isSquare(inputNumber) && _isTriangular(inputNumber)) {
+        if (inputNumber.isSquare && inputNumber.isCube) {
           outputText = 'Number $inputNumber is SQUARE and TRIANGULAR';
-        } else if (_isSquare(inputNumber)) {
+        } else if (inputNumber.isSquare) {
           outputText = 'Number $inputNumber is SQUARE';
-        } else if (_isTriangular(inputNumber)) {
+        } else if (inputNumber.isCube) {
           outputText = 'Number $inputNumber is TRIANGULAR';
         } else {
           outputText = 'Number $inputNumber is not a SQUARE nor TRIANGULAR';
@@ -51,24 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
       inputHolder.clear();
       isEmpty = true;
     });
-  }
-
-  bool _isSquare(int input) {
-    for (int i = 0; i < input / 2; i++) {
-      if (i * i == input) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  bool _isTriangular(int input) {
-    for (int i = 0; i < input / 2; i++) {
-      if (i * i * i == input) {
-        return true;
-      }
-    }
-    return false;
   }
 
   @override
@@ -87,6 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(children: <Widget>[
                   const Text(
                     'Please input a number to see if it is a square or a triangle',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
                   ),
                   TextField(
                     controller: inputHolder,
