@@ -61,9 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   errorText: isError ? 'please enter a number' : null,
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))
-                ],
+                inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))],
                 onChanged: (String value) {
                   setState(() {
                     if (value.isEmpty) {
