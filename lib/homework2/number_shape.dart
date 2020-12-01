@@ -77,9 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   TextField(
                     controller: inputHolder,
                     keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
+                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                     onChanged: (String value) {
                       setState(() {
                         if (value.isEmpty) {

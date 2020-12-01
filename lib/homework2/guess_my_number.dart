@@ -99,32 +99,31 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
                 margin: const EdgeInsets.all(10.0),
-                child: Column(
-                    children: <Widget>[
-                      const Text(
-                        'I\'m thinking of a number between 1 and 100.',
-                        style: TextStyle(
-                          fontSize: 24.0,
-                        ),
-                        textAlign: TextAlign.center,
+                child: Column(children: <Widget>[
+                  const Text(
+                    'I\'m thinking of a number between 1 and 100.',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Text(
+                    'It\' s your turn to guess my number!',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  if (guessPressed)
+                    Text(
+                      result,
+                      style: const TextStyle(
+                        fontSize: 28.0,
+                        color: Colors.grey,
                       ),
-                      const Text(
-                        'It\' s your turn to guess my number!',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      if (guessPressed)
-                        Text(
-                          result,
-                          style: const TextStyle(
-                            fontSize: 28.0,
-                            color: Colors.grey,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                    ])),
+                      textAlign: TextAlign.center,
+                    ),
+                ])),
             Container(
                 margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                 child: Column(
@@ -136,17 +135,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Column(children: <Widget>[
                             Container(
                                 margin: const EdgeInsets.all(10.0),
-                                child: const Text('Try a number!',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 22.0))),
+                                child:
+                                    const Text('Try a number!', style: TextStyle(color: Colors.black, fontSize: 22.0))),
                             Container(
                                 margin: const EdgeInsets.all(10.0),
                                 child: TextField(
                                     controller: nameHolder,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                                     onChanged: (String value) {
                                       setState(() {
                                         if (value.isEmpty) {
@@ -171,27 +167,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                           if (inputNumber == numberToBeGuessed)
                                             showDialog<AlertDialog>(
                                                 context: context,
-                                                builder:
-                                                    (BuildContext context) {
+                                                builder: (BuildContext context) {
                                                   return AlertDialog(
                                                     title: const Text(
                                                       'You guessed right!',
                                                     ),
-                                                    content: Row(
-                                                        children: <Widget>[
-                                                          Text(
-                                                              'It was ${numberToBeGuessed.toString()}')
-                                                        ]),
+                                                    content: Row(children: <Widget>[
+                                                      Text('It was ${numberToBeGuessed.toString()}')
+                                                    ]),
                                                     actions: <Widget>[
                                                       FlatButton(
-                                                          child: const Text(
-                                                              'Try Again!'),
-                                                          onPressed:
-                                                              _tryAgainAction),
-                                                      FlatButton(
-                                                          child:
-                                                              const Text('OK'),
-                                                          onPressed: _okAction)
+                                                          child: const Text('Try Again!'), onPressed: _tryAgainAction),
+                                                      FlatButton(child: const Text('OK'), onPressed: _okAction)
                                                     ],
                                                   );
                                                 });
