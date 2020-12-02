@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'homework2/guess_my_number.dart' as guess_my_number;
+import 'homework3/tic_tac_toe.dart' as tic_tac_toe;
 
 void main() {
-  runApp(guess_my_number.MyApp());
+  runApp(tic_tac_toe.MyApp());
 }
