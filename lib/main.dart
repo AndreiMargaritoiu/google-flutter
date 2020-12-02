@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'homework3/tic_tac_toe.dart' as tic_tac_toe;
+import 'homework3/basic_phrases.dart' as basic_phrases;
 
 void main() {
-  runApp(tic_tac_toe.MyApp());
+  runApp(basic_phrases.MyApp());
 }

@@ -74,11 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
         _winningStrike(_listIndexes, 2, 4, 6);
   }
 
-  bool _winningStrike(
-      List<int> _listIndexes, int index1, int index2, int index3) {
-    return _listIndexes.contains(index1) &&
-        _listIndexes.contains(index2) &&
-        _listIndexes.contains(index3);
+  bool _winningStrike(List<int> _listIndexes, int index1, int index2, int index3) {
+    return _listIndexes.contains(index1) && _listIndexes.contains(index2) && _listIndexes.contains(index3);
   }
 
   @override
@@ -96,26 +93,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: GridView.builder(
                     padding: const EdgeInsets.all(8.0),
                     itemCount: 9,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () => _addToList(index),
                         child: AnimatedContainer(
-                            decoration: BoxDecoration(
-                          color: _clearPressed
-                              ? Colors.white
-                              : _listRed.contains(index)
-                                  ? Colors.red
-                                  : _listGreen.contains(index)
-                                      ? Colors.green
-                                      : Colors.white,
-                          border: Border.all(
-                            color: Colors.black,
+                          decoration: BoxDecoration(
+                            color: _clearPressed
+                                ? Colors.white
+                                : _listRed.contains(index)
+                                    ? Colors.red
+                                    : _listGreen.contains(index)
+                                        ? Colors.green
+                                        : Colors.white,
+                            border: Border.all(
+                              color: Colors.black,
+                            ),
                           ),
-                        ), duration: const Duration(milliseconds: 300),),
+                          duration: const Duration(milliseconds: 300),
+                        ),
                       );
                     })),
             if (_gameOver)
