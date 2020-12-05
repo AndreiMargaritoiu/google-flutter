@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,8 +25,65 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  final List<String> _phrases = <String>[
+    'buna',
+    'buna (en)',
+    'mancare',
+    'mancare (en)',
+    'alergat',
+    'alergat (en)',
+    'somn',
+    'somn (en)',
+    'codat',
+    'codat (en)',
+  ];
+
   void _playSound(int index) {
-    setState(() {});
+    setState(() {
+      switch (index) {
+        case 0:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=buna&tl=ro&total=1&idx=0&textlen=20');
+          break;
+        case 1:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=hi&tl=en&total=1&idx=0&textlen=20');
+          break;
+        case 2:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=mancare&tl=ro&total=1&idx=0&textlen=20');
+          break;
+        case 3:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=food&tl=en&total=1&idx=0&textlen=20');
+          break;
+        case 4:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=alergat&tl=ro&total=1&idx=0&textlen=20');
+          break;
+        case 5:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=running&tl=en&total=1&idx=0&textlen=20');
+          break;
+        case 6:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=somn&tl=ro&total=1&idx=0&textlen=20');
+          break;
+        case 7:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=sleep&tl=en&total=1&idx=0&textlen=20');
+          break;
+        case 8:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=codat&tl=ro&total=1&idx=0&textlen=20');
+          break;
+        case 9:
+          _audioPlayer.play(
+              'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=coding&tl=en&total=1&idx=0&textlen=20');
+          break;
+      }
+    });
   }
 
   @override
@@ -42,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
                 child: GridView.builder(
                     padding: const EdgeInsets.all(16.0),
-                    itemCount: 10,
+                    itemCount: _phrases.length,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 32.0,
@@ -60,9 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                '$index',
+                                _phrases.elementAt(index),
                                 style: const TextStyle(
-                                  fontSize: 24.0,
+                                  fontSize: 16.0,
                                   color: Colors.white,
                                 ),
                                 textAlign: TextAlign.center,

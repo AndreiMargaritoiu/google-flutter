@@ -24,8 +24,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<int> _listRed = <int>[];
-  final List<int> _listGreen = <int>[];
+  List<int> _listRed = <int>[];
+  List<int> _listGreen = <int>[];
   bool _isRedsTurn = true, _gameOver = false, _clearPressed = false;
 
   void _addToList(int index) {
@@ -34,14 +34,18 @@ class _MyHomePageState extends State<MyHomePage> {
       if (!_gameOver && _boxWasPressed(index)) {
         if (_isRedsTurn) {
           _listRed.add(index);
-          if (_checkWin(_listRed) || _listRed.length == 5) {
+          if (_checkWin(_listRed) != null || _listRed.length == 5) {
             _gameOver = true;
+            _listRed = _listRed.where((int element) => _checkWin(_listRed).contains(element)).toList();
+            _listGreen.clear();
           }
           _isRedsTurn = false;
         } else {
           _listGreen.add(index);
-          if (_checkWin(_listGreen)) {
+          if (_checkWin(_listGreen) != null) {
             _gameOver = true;
+            _listGreen = _listGreen.where((int element) => _checkWin(_listGreen).contains(element)).toList();
+            _listRed.clear();
           }
           _isRedsTurn = true;
         }
@@ -63,19 +67,29 @@ class _MyHomePageState extends State<MyHomePage> {
     return !_listRed.contains(index) && !_listGreen.contains(index);
   }
 
-  bool _checkWin(List<int> _listIndexes) {
-    return _winningStrike(_listIndexes, 0, 1, 2) ||
-        _winningStrike(_listIndexes, 3, 4, 5) ||
-        _winningStrike(_listIndexes, 6, 7, 8) ||
-        _winningStrike(_listIndexes, 0, 3, 6) ||
-        _winningStrike(_listIndexes, 1, 4, 7) ||
-        _winningStrike(_listIndexes, 2, 5, 8) ||
-        _winningStrike(_listIndexes, 0, 4, 8) ||
-        _winningStrike(_listIndexes, 2, 4, 6);
+  List<int> _checkWin(List<int> _listIndexes) {
+    final List<List<int>> _winningPositionsList = <List<int>>[
+      <int>[0, 1, 2],
+      <int>[3, 4, 5],
+      <int>[6, 7, 8],
+      <int>[0, 3, 6],
+      <int>[1, 4, 7],
+      <int>[2, 5, 8],
+      <int>[0, 4, 8],
+      <int>[2, 4, 6]
+    ];
+    for (final List<int> _winningPositions in _winningPositionsList) {
+      if (_winningStrike(_listIndexes, _winningPositions)) {
+        return _winningPositions;
+      }
+    }
+    return null;
   }
 
-  bool _winningStrike(List<int> _listIndexes, int index1, int index2, int index3) {
-    return _listIndexes.contains(index1) && _listIndexes.contains(index2) && _listIndexes.contains(index3);
+  bool _winningStrike(List<int> _listIndexes, List<int> _indexes) {
+    return _listIndexes.contains(_indexes.elementAt(0)) &&
+        _listIndexes.contains(_indexes.elementAt(1)) &&
+        _listIndexes.contains(_indexes.elementAt(2));
   }
 
   @override
