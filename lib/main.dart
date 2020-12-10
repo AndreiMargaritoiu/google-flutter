@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'homework3/basic_phrases.dart' as basic_phrases;
+import 'homework4/movies.dart' as app;
 
 void main() {
-  runApp(basic_phrases.MyApp());
+  runApp(app.MyApp());
 }
