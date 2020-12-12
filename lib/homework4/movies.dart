@@ -25,7 +25,7 @@ class Movie {
   }
 
   final int id;
-  final String title;
+  String title;
   final int year;
   final int runTime;
   final num rating;
@@ -74,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   bool isError = false, filterPressed = false;
   TextEditingController inputHolder = TextEditingController();
+  int _radioValue = 0;
 
   @override
   void initState() {
@@ -97,6 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
         rating: item['rating'],
         cover: item['medium_cover_image'],
       );
+      if (movie.title.length > 33) {
+        movie.title = '${movie.title.substring(0, 30)} ...';
+      }
 
       _movies.add(movie);
     }
@@ -137,7 +141,17 @@ class _MyHomePageState extends State<MyHomePage> {
       if (inputHolder.text.isEmpty) {
         isError = true;
       } else {
-        _movies = _movies.where((Movie movie) => movie.year == int.parse(inputHolder.text)).toList();
+        switch (_radioValue) {
+          case 0:
+            _movies = _movies.where((Movie movie) => movie.year == int.parse(inputHolder.text)).toList();
+            break;
+          case 1:
+            _movies = _movies.where((Movie movie) => movie.year > int.parse(inputHolder.text)).toList();
+            break;
+          case 2:
+            _movies = _movies.where((Movie movie) => movie.year < int.parse(inputHolder.text)).toList();
+            break;
+        }
         filterPressed = true;
         inputHolder.clear();
         isError = false;
@@ -179,21 +193,71 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter the year',
-                errorText: isError ? 'please enter a number' : null,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 250,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter the year',
+                        errorText: isError ? 'please enter a number' : null,
+                      ),
+                      controller: inputHolder,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                    ),
+                  ),
+                  FlatButton(
+                    onPressed: !filterPressed ? filterItems : restoreItems,
+                    color: Colors.grey,
+                    child: Text(
+                      !filterPressed ? 'Filter' : 'Clear',
+                    ),
+                  ),
+                ],
               ),
-              controller: inputHolder,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
             ),
-            FlatButton(
-              onPressed: !filterPressed ? filterItems : restoreItems,
-              color: Colors.grey,
-              child: Text(
-                !filterPressed ? 'Filter' : 'Clear',
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Radio<int>(
+                  value: 0,
+                  groupValue: _radioValue,
+                  onChanged: (int value) => setState(() {
+                    _radioValue = value;
+                  }),
+                ),
+                const Text(
+                  'equal',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                Radio<int>(
+                  value: 1,
+                  groupValue: _radioValue,
+                  onChanged: (int value) => setState(() {
+                    _radioValue = value;
+                  }),
+                ),
+                const Text(
+                  'bigger',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                ),
+                Radio<int>(
+                  value: 2,
+                  groupValue: _radioValue,
+                  onChanged: (int value) => setState(() {
+                    _radioValue = value;
+                  }),
+                ),
+                const Text(
+                  'smaller',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              ],
             ),
             Expanded(
               child: ListView.builder(
@@ -206,35 +270,38 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Row(
                         children: <Widget>[
                           Image.network('${_movies[index].cover}'),
-                          Column(
-                            children: <Widget>[
-                              Flexible (
-                                child: Text(
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
                                   _movies[index].title,
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Year ${_movies[index].year.toString()}',
                                   style: const TextStyle(
                                     fontSize: 16.0,
                                   ),
                                 ),
-                              ),
-                              Text(
-                                _movies[index].year.toString(),
-                                style: const TextStyle(
-                                  fontSize: 16.0,
+                                Text(
+                                  'Runtime: ${_movies[index].runTime.toString()}',
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                _movies[index].runTime.toString(),
-                                style: const TextStyle(
-                                  fontSize: 16.0,
+                                Text(
+                                  'Rating: ${_movies[index].rating.toString()}',
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                _movies[index].rating.toString(),
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           )
                         ],
                       ),
