@@ -41,13 +41,21 @@ class Movie {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return Listener(
+      onPointerDown: (_) {
+        final FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+          currentFocus.focusedChild.unfocus();
+        }
+      },
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const MyHomePage(title: 'Movies'),
       ),
-      home: const MyHomePage(title: 'Movies'),
     );
   }
 }
@@ -63,7 +71,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Movie> _movies = <Movie>[];
-  List<String> dropDown = <String>[
+  final List<String> _dropDown = <String>[
     'default',
     'rating ascending',
     'rating descending',
@@ -72,17 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
     'year ascending',
     'year descending',
   ];
-  bool isError = false, filterPressed = false;
+  bool _isError = false, _filterPressed = false;
   TextEditingController inputHolder = TextEditingController();
   int _radioValue = 0;
 
   @override
   void initState() {
     super.initState();
-    getMovies();
+    _getMovies();
   }
 
-  Future<void> getMovies() async {
+  Future<void> _getMovies() async {
     final Response response = await get('https://yts.mx/api/v2/list_movies.json');
     final Map<String, dynamic> responseData = jsonDecode(response.body);
     final Map<String, dynamic> data = responseData['data'];
@@ -101,7 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
       if (movie.title.length > 33) {
         movie.title = '${movie.title.substring(0, 30)} ...';
       }
-
       _movies.add(movie);
     }
 
@@ -110,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void sortItems(String value) {
+  void _sortItems(String value) {
     switch (value) {
       case 'rating ascending':
         _movies.sort((Movie first, Movie second) => first.rating.compareTo(second.rating));
@@ -136,10 +143,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void filterItems() {
+  void _filterItems() {
     setState(() {
       if (inputHolder.text.isEmpty) {
-        isError = true;
+        _isError = true;
       } else {
         switch (_radioValue) {
           case 0:
@@ -152,43 +159,49 @@ class _MyHomePageState extends State<MyHomePage> {
             _movies = _movies.where((Movie movie) => movie.year < int.parse(inputHolder.text)).toList();
             break;
         }
-        filterPressed = true;
+        _filterPressed = true;
         inputHolder.clear();
-        isError = false;
+        _isError = false;
       }
     });
   }
 
-  void restoreItems() {
+  void _restoreItems() {
     _movies.clear();
-    getMovies();
-    filterPressed = false;
+    _getMovies();
+    _filterPressed = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(widget.title),
-          DropdownButton<String>(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(widget.title),
+            DropdownButton<String>(
               underline: Container(),
               icon: const Icon(Icons.sort, color: Colors.white),
-              items: dropDown.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+              items: _dropDown.map<DropdownMenuItem<String>>(
+                (String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                },
+              ).toList(),
               onChanged: (String value) {
-                setState(() {
-                  sortItems(value);
-                });
-              })
-        ],
-      )),
+                setState(
+                  () {
+                    _sortItems(value);
+                  },
+                );
+              },
+            )
+          ],
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -197,12 +210,11 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: <Widget>[
-                  Container(
-                    width: 250,
+                  Flexible(
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Enter the year',
-                        errorText: isError ? 'please enter a number' : null,
+                        errorText: _isError ? 'please enter a number' : null,
                       ),
                       controller: inputHolder,
                       keyboardType: TextInputType.number,
@@ -210,10 +222,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: !filterPressed ? filterItems : restoreItems,
+                    onPressed: !_filterPressed ? _filterItems : _restoreItems,
                     color: Colors.grey,
                     child: Text(
-                      !filterPressed ? 'Filter' : 'Clear',
+                      !_filterPressed ? 'Filter' : 'Clear',
                     ),
                   ),
                 ],
@@ -225,20 +237,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 Radio<int>(
                   value: 0,
                   groupValue: _radioValue,
-                  onChanged: (int value) => setState(() {
-                    _radioValue = value;
-                  }),
+                  onChanged: (int value) => setState(
+                    () {
+                      _radioValue = value;
+                    },
+                  ),
                 ),
                 const Text(
                   'equal',
-                  style: TextStyle(fontSize: 16.0),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
                 ),
                 Radio<int>(
                   value: 1,
                   groupValue: _radioValue,
-                  onChanged: (int value) => setState(() {
-                    _radioValue = value;
-                  }),
+                  onChanged: (int value) => setState(
+                    () {
+                      _radioValue = value;
+                    },
+                  ),
                 ),
                 const Text(
                   'bigger',
@@ -249,9 +267,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Radio<int>(
                   value: 2,
                   groupValue: _radioValue,
-                  onChanged: (int value) => setState(() {
-                    _radioValue = value;
-                  }),
+                  onChanged: (int value) => setState(
+                    () {
+                      _radioValue = value;
+                    },
+                  ),
                 ),
                 const Text(
                   'smaller',
