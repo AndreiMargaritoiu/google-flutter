@@ -1,14 +1,14 @@
-import 'package:FlutterHomework/homework5/presentation/home_page.dart';
-import 'package:FlutterHomework/homework5/reducer/reducer.dart';
+import 'package:FlutterHomework/homework56/actions/get_movies.dart';
+import 'package:FlutterHomework/homework56/data/yts_api.dart';
+import 'package:FlutterHomework/homework56/middleware/app_middleware.dart';
+import 'package:FlutterHomework/homework56/models/app_state.dart';
+import 'package:FlutterHomework/homework56/presentation/home_page.dart';
+import 'package:FlutterHomework/homework56/reducer/reducer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart';
 import 'package:redux/redux.dart';
-import 'actions/get_movies.dart';
-import 'data/yts_api.dart';
-import 'middleware/app_middleware.dart';
-import 'models/app_state.dart';
 
 void main() {
   final Client client = Client();
@@ -21,7 +21,7 @@ void main() {
     middleware: appMiddleware.middleware,
   );
 
-  store.dispatch(const GetMovies());
+  store.dispatch(GetMovies.start(initialState.page));
   runApp(MyApp(store: store));
 }
 

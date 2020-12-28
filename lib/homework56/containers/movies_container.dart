@@ -1,8 +1,8 @@
-import 'package:FlutterHomework/homework5/models/app_state.dart';
-import 'package:FlutterHomework/homework5/models/movie.dart';
+import 'package:FlutterHomework/homework56/models/app_state.dart';
+import 'package:FlutterHomework/homework56/models/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
+import 'package:redux/src/store.dart';
 
 class MoviesContainer extends StatelessWidget {
   const MoviesContainer({Key key, @required this.builder}) : super(key: key);
