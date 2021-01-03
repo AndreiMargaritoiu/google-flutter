@@ -1,6 +1,6 @@
 library serializers;
 
-import 'package:FlutterHomework/homework56/models/movie.dart';
+import 'package:FlutterHomework/homework56/models/index.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 

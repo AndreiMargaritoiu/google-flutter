@@ -1,7 +1,7 @@
-import 'package:FlutterHomework/homework56/actions/get_movies.dart';
+import 'package:FlutterHomework/homework56/actions/index.dart';
 import 'package:FlutterHomework/homework56/data/yts_api.dart';
 import 'package:FlutterHomework/homework56/epics/app_epics.dart';
-import 'package:FlutterHomework/homework56/models/app_state.dart';
+import 'package:FlutterHomework/homework56/models/index.dart';
 import 'package:FlutterHomework/homework56/presentation/home_page.dart';
 import 'package:FlutterHomework/homework56/reducer/reducer.dart';
 import 'package:flutter/cupertino.dart';
