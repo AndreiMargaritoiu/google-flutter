@@ -45,3 +45,5 @@ Display movies from an external API, with options for filtering and order by
 Display movies from an external API, with Redux for state management and a more complex architecture
 
 - Can be found on the package called homework567
+
+![Screenshot](screenshots/movies_list.png)
