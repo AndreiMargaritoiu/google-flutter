@@ -1,6 +1,6 @@
-import 'package:FlutterHomework/homework56/actions/index.dart';
-import 'package:FlutterHomework/homework56/data/yts_api.dart';
-import 'package:FlutterHomework/homework56/models/index.dart';
+import 'package:FlutterHomework/homework567/actions/index.dart';
+import 'package:FlutterHomework/homework567/data/yts_api.dart';
+import 'package:FlutterHomework/homework567/models/index.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 

@@ -1,16 +1,39 @@
-# FlutterHomework
+# Google Flutter Homework
 
-Google Flutter homeworks
+This repo contains multiple Flutter applications, as follows:
 
-## Getting Started
+## Currency converter
 
-This project is a starting point for a Flutter application.
+Convert a value from EURO to RON
 
-A few resources to get you started if this is your first Flutter project:
+![Screenshot](screenshots/currency_converter.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Guess my number
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Try to guess random numbers 
+
+![Screenshot](screenshots/guess_my_number_1.png)
+
+![Screenshot](screenshots/guess_my_number_2.png)
+
+## Basic phrases
+
+Play audio text from a box 
+
+![Screenshot](screenshots/basic_phrases.png)
+
+## Tic tac toe
+
+![Screenshot](screenshots/tic_tac_toe.png)
+
+## Movies app 1
+
+Display movies from an external API, with options for filtering and order by
+
+![Screenshot](screenshots/movies.png)
+
+## Movies app 2
+
+Display movies from an external API, with Redux for state management and a more complex architecture
+
+- Can be found on the package called homework567

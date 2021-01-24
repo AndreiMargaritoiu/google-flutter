@@ -2,7 +2,7 @@ library containers;
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:FlutterHomework/homework56/models/index.dart';
+import 'package:FlutterHomework/homework567/models/index.dart';
 import 'package:redux/src/store.dart';
 
 part 'genres_container.dart';

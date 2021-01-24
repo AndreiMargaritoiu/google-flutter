@@ -1,9 +1,9 @@
-import 'package:FlutterHomework/homework56/actions/index.dart';
-import 'package:FlutterHomework/homework56/data/yts_api.dart';
-import 'package:FlutterHomework/homework56/epics/app_epics.dart';
-import 'package:FlutterHomework/homework56/models/index.dart';
-import 'package:FlutterHomework/homework56/presentation/home_page.dart';
-import 'package:FlutterHomework/homework56/reducer/reducer.dart';
+import 'package:FlutterHomework/homework567/actions/index.dart';
+import 'package:FlutterHomework/homework567/data/yts_api.dart';
+import 'package:FlutterHomework/homework567/epics/app_epics.dart';
+import 'package:FlutterHomework/homework567/models/index.dart';
+import 'package:FlutterHomework/homework567/presentation/home_page.dart';
+import 'package:FlutterHomework/homework567/reducer/reducer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
