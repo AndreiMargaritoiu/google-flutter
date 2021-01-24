@@ -16,6 +16,12 @@ Try to guess random numbers
 
 ![Screenshot](screenshots/guess_my_number_2.png)
 
+## Number shaper
+
+Check if a number is a square, a cube, both of them or neither one
+
+![Screenshot](screenshots/number_shape.png)
+
 ## Basic phrases
 
 Play audio text from a box 
