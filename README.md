@@ -1,6 +1,8 @@
 # Google Flutter Homework
 
-This repo contains multiple Flutter applications, as follows:
+This repo contains multiple Flutter applications, as follows: 
+<br/>
+To test one application, clone the Github repo and edit in main.dart file the import using the package & app that you want to test.
 
 ## Currency converter
 
